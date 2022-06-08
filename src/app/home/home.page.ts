@@ -17,8 +17,8 @@ export class HomePage {
 
   }
 
-  ionViewDidEnter(){
-    console.log("ionViewDidEnter");
+  ionViewWillEnter(){
+    console.log("ionViewWillEnter");
     if (history.state.barcodeResults) {
         this.barcodeResults = history.state.barcodeResults;
         console.log("result:"+this.barcodeResults);
