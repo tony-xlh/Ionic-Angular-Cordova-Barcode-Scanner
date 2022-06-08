@@ -17,14 +17,12 @@ export class BarcodeScannerComponent implements OnInit {
     this._isActive= isActive;
     if (isActive === true) {
       DBR.startScanning({dceLicense:this.license}).subscribe((result:FrameResult) => {
-        this.cameraStarted = true;
         if (this.onFrameRead) {
           this.onFrameRead.emit(result);
         }
       });
     }else{
       console.log("stop scanning");
-      this.cameraStarted = false;
       DBR.stopScanning();
     }
   }
@@ -33,19 +31,16 @@ export class BarcodeScannerComponent implements OnInit {
   @Input()
   set torchOn(torchOn: boolean) {
     this._torchOn= torchOn;
-    if (this.cameraStarted === true) {
-      if (torchOn === true) {
-        DBR.switchTorch("on");
-      }else{
-        DBR.switchTorch("off");
-      }
+    if (torchOn === true) {
+      DBR.switchTorch("on");
+    }else{
+      DBR.switchTorch("off");
     }
   }
   get torchOn(): boolean{ return this._torchOn; }
 
   onFrameRead = new EventEmitter<FrameResult>();
   license?:string
-  cameraStarted:boolean = false;
   constructor() {
   }
 
