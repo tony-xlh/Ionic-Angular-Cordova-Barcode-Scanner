@@ -1,6 +1,7 @@
 import { LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { BarcodeScanner as DBR, FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
 
 @Component({
   selector: 'app-scanner',
@@ -26,7 +27,7 @@ export class ScannerPage implements OnInit {
     console.log("continuous scan: "+this.continuous);
     console.log("qrcodeonly: "+this.qrcodeonly);
 
-    this.goBack();
+    //this.goBack();
   }
 
   goBack(){
@@ -36,6 +37,11 @@ export class ScannerPage implements OnInit {
         barcodeResults:["asda"]
       }
     });
+  }
+
+  onFrameRead(frameResult:FrameResult) {
+    console.log(arguments);
+    console.log(frameResult);
   }
 
 }
