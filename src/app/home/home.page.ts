@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { BarcodeResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  barcodeResults:[];
+  barcodeResults:BarcodeResult[];
   public scanOptions = [
     { val: 'Continuous Scan', isChecked: false },
     { val: 'Scan QR Code Only', isChecked: false }
@@ -19,10 +20,8 @@ export class HomePage {
   ionViewDidEnter(){
     console.log("ionViewDidEnter");
     if (history.state.barcodeResults) {
-
         this.barcodeResults = history.state.barcodeResults;
         console.log("result:"+this.barcodeResults);
-
     }
   }
 

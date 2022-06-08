@@ -19,7 +19,7 @@
       <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
     </ion-item>
     <ion-item *ngFor="let result of barcodeResults">
-      <ion-label>{{result}}</ion-label>
+      <ion-label>{{result.barcodeFormat + ": " + result.barcodeText}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>
