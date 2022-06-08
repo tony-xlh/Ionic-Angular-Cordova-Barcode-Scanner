@@ -9,7 +9,6 @@ import { FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner'
 })
 export class ScannerPage implements OnInit {
   isActive: boolean;
-  continuous: boolean;
   qrcodeonly: boolean;
   runtimeSettings: string;
 
@@ -18,7 +17,6 @@ export class ScannerPage implements OnInit {
     if (this.router.getCurrentNavigation().extras.state) {
       const routeState = this.router.getCurrentNavigation().extras.state;
       if (routeState) {
-        this.continuous = routeState.continuous;
         this.qrcodeonly = routeState.qrcodeonly;
       }
     }
@@ -35,18 +33,15 @@ export class ScannerPage implements OnInit {
   }
 
   onFrameRead(frameResult:FrameResult) {
-    console.log(arguments);
+    console.log("on frame read in scanner page");
     console.log(frameResult);
     if (frameResult.results.length>0) {
-      if (this.continuous === false) {
-        this.isActive = false;
-        this.router.navigate(['/home'],{
-          state: {
-            barcodeResults:frameResult.results
-          }
-        });
-      }
+      this.isActive = false;
+      this.router.navigate(['/home'],{
+        state: {
+          barcodeResults:frameResult.results
+        }
+      });
     }
   }
-
 }

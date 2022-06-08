@@ -10,7 +10,6 @@ import { BarcodeResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanne
 export class HomePage {
   barcodeResults:BarcodeResult[];
   public scanOptions = [
-    { val: 'Continuous Scan', isChecked: false },
     { val: 'Scan QR Code Only', isChecked: false }
   ];
   constructor(private router: Router) {
@@ -26,11 +25,9 @@ export class HomePage {
   }
 
   navigate(){
-    let continuous = this.scanOptions[0].isChecked;
-    let qrcodeonly = this.scanOptions[1].isChecked;
+    let qrcodeonly = this.scanOptions[0].isChecked;
     this.router.navigate(['/scanner'],{
       state: {
-        continuous: continuous,
         qrcodeonly: qrcodeonly
       }
     });
