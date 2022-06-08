@@ -8,11 +8,13 @@ import { FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner'
   styleUrls: ['./scanner.page.scss'],
 })
 export class ScannerPage implements OnInit {
+  isActive: boolean;
   continuous: boolean;
   qrcodeonly: boolean;
+  runtimeSettings: string;
 
   constructor(private router: Router) {
-    console.log(this.router);
+    console.log("constructor");
     if (this.router.getCurrentNavigation().extras.state) {
       const routeState = this.router.getCurrentNavigation().extras.state;
       if (routeState) {
@@ -20,11 +22,16 @@ export class ScannerPage implements OnInit {
         this.qrcodeonly = routeState.qrcodeonly;
       }
     }
+    if (this.qrcodeonly === true) {
+      this.runtimeSettings = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
+    }else{
+      this.runtimeSettings = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
+    }
+    this.isActive = true;
    }
 
   ngOnInit() {
-    console.log("continuous scan: "+this.continuous);
-    console.log("qrcodeonly: "+this.qrcodeonly);
+
   }
 
   onFrameRead(frameResult:FrameResult) {
@@ -32,6 +39,7 @@ export class ScannerPage implements OnInit {
     console.log(frameResult);
     if (frameResult.results.length>0) {
       if (this.continuous === false) {
+        this.isActive = false;
         this.router.navigate(['/home'],{
           state: {
             barcodeResults:frameResult.results

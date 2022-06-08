@@ -14,23 +14,27 @@ export class BarcodeScannerComponent implements OnInit {
   onFrameRead = new EventEmitter<FrameResult>();
   license?:string
   constructor() {
-   }
+  }
 
-  async ngOnInit() {
+  async ngOnInit():Promise<void> {
     if (!this.license) {
       this.license = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==";
     }
     let result = await DBR.init(this.license);
+    if (this.runtimeSettings) {
+      console.log("update runtime settings:"+this.runtimeSettings);
+      DBR.initRuntimeSettingsWithString(this.runtimeSettings);
+    }
   }
 
-  ngOnDestroy() {
-    DBR.destroy();
+  async ngOnDestroy() {
+    await DBR.destroy();
   }
 
-  ngOnChanges(changes: SimpleChanges){
+  async ngOnChanges(changes: SimpleChanges){
     console.log(changes.isActive);
     if (changes.isActive) {
-      if (changes.isActive.currentValue === "true") {
+      if (changes.isActive.currentValue === true) {
         DBR.startScanning({dceLicense:this.license}).subscribe((result:FrameResult) => {
           console.log(result);
           if (this.onFrameRead) {
@@ -38,7 +42,8 @@ export class BarcodeScannerComponent implements OnInit {
           }
         });
       }else{
-        DBR.stopScanning();
+        console.log("stop scanning");
+        await DBR.stopScanning();
       }
     }
     if (changes.torchOn) {
@@ -48,8 +53,6 @@ export class BarcodeScannerComponent implements OnInit {
         DBR.switchTorch("off");
       }
     }
-    if (changes.runtimeSettings) {
-      DBR.initRuntimeSettingsWithString(changes.runtimeSettings.currentValue);
-    }
+
   }
 }

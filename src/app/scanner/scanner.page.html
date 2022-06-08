@@ -1,5 +1,6 @@
 
 <app-barcode-scanner
- isActive = "true"
+ [isActive] = "isActive"
+ [runtimeSettings] = "runtimeSettings"
  (onFrameRead)="onFrameRead($event)"></app-barcode-scanner>
 
