@@ -10,6 +10,7 @@ import { FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner'
 export class ScannerPage implements OnInit {
   isActive: boolean;
   qrcodeonly: boolean;
+  torchOn: boolean;
   runtimeSettings: string;
 
   constructor(private router: Router) {
@@ -26,6 +27,7 @@ export class ScannerPage implements OnInit {
       this.runtimeSettings = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
     }
     this.isActive = true;
+    this.torchOn = false;
    }
 
   ngOnInit() {
@@ -37,11 +39,26 @@ export class ScannerPage implements OnInit {
     console.log(frameResult);
     if (frameResult.results.length>0) {
       this.isActive = false;
+      this.torchOn = false;
       this.router.navigate(['/home'],{
         state: {
           barcodeResults:frameResult.results
         }
       });
     }
+  }
+
+  close(){
+    this.isActive = false;
+    this.torchOn = false;
+    this.router.navigate(['/home'],{
+      state: {
+        barcodeResults:[]
+      }
+    });
+  }
+
+  toggleTorch(){
+    this.torchOn = !this.torchOn;
   }
 }

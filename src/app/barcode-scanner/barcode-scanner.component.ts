@@ -8,11 +8,44 @@ import { BarcodeScanner as DBR, FrameResult } from '@awesome-cordova-plugins/dyn
   outputs: ['onFrameRead']
 })
 export class BarcodeScannerComponent implements OnInit {
-  @Input() isActive: boolean;
-  @Input() torchOn?:boolean;
-  @Input() runtimeSettings?:string;
+  @Input() runtimeSettings:string;
+  private _torchOn:boolean;
+  private _isActive: boolean;
+
+  @Input()
+  set isActive(isActive: boolean) {
+    this._isActive= isActive;
+    if (isActive === true) {
+      DBR.startScanning({dceLicense:this.license}).subscribe((result:FrameResult) => {
+        this.cameraStarted = true;
+        if (this.onFrameRead) {
+          this.onFrameRead.emit(result);
+        }
+      });
+    }else{
+      console.log("stop scanning");
+      this.cameraStarted = false;
+      DBR.stopScanning();
+    }
+  }
+  get isActive(): boolean{ return this._isActive; }
+
+  @Input()
+  set torchOn(torchOn: boolean) {
+    this._torchOn= torchOn;
+    if (this.cameraStarted === true) {
+      if (torchOn === true) {
+        DBR.switchTorch("on");
+      }else{
+        DBR.switchTorch("off");
+      }
+    }
+  }
+  get torchOn(): boolean{ return this._torchOn; }
+
   onFrameRead = new EventEmitter<FrameResult>();
   license?:string
+  cameraStarted:boolean = false;
   constructor() {
   }
 
@@ -29,30 +62,5 @@ export class BarcodeScannerComponent implements OnInit {
 
   async ngOnDestroy() {
     await DBR.destroy();
-  }
-
-  async ngOnChanges(changes: SimpleChanges){
-    console.log(changes.isActive);
-    if (changes.isActive) {
-      if (changes.isActive.currentValue === true) {
-        DBR.startScanning({dceLicense:this.license}).subscribe((result:FrameResult) => {
-          console.log(result);
-          if (this.onFrameRead) {
-            this.onFrameRead.emit(result);
-          }
-        });
-      }else{
-        console.log("stop scanning");
-        await DBR.stopScanning();
-      }
-    }
-    if (changes.torchOn) {
-      if (changes.torchOn.currentValue === "true") {
-        DBR.switchTorch("on");
-      }else{
-        DBR.switchTorch("off");
-      }
-    }
-
   }
 }
