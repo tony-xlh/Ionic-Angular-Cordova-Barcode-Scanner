@@ -37,8 +37,8 @@ export class BarcodeScannerComponent implements OnInit {
       DBR.switchTorch("off");
     }
   }
-  get torchOn(): boolean{ return this._torchOn; }
 
+  get torchOn(): boolean{ return this._torchOn; }
   onFrameRead = new EventEmitter<FrameResult>();
   license?:string
   constructor() {
@@ -56,6 +56,6 @@ export class BarcodeScannerComponent implements OnInit {
   }
 
   async ngOnDestroy() {
-    await DBR.destroy();
+    await DBR.stopScanning();
   }
 }
