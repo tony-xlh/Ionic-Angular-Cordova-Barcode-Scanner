@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { BarcodeScanner as DBR, FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner/';
 
 @Component({
@@ -40,7 +40,7 @@ export class BarcodeScannerComponent implements OnInit {
 
   get torchOn(): boolean{ return this._torchOn; }
   onFrameRead = new EventEmitter<FrameResult>();
-  license?:string
+  @Input() license?:string
   constructor() {
   }
 
