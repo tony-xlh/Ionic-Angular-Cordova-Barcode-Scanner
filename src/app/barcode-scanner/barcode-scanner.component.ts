@@ -47,6 +47,8 @@ export class BarcodeScannerComponent implements OnInit {
   async ngOnInit():Promise<void> {
     if (!this.license) {
       this.license = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==";
+    }else{
+      console.log("use provided license");
     }
     let result = await DBR.init(this.license);
     if (this.runtimeSettings) {
