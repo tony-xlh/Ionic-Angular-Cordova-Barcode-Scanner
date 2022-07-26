@@ -12,6 +12,12 @@ export class ScannerPage implements OnInit {
   qrcodeonly: boolean;
   torchOn: boolean;
   runtimeSettings: string;
+  left: number = 0;
+  top: number = 0;
+  right: number = 0;
+  bottom: number = 0;
+  width: number = 0;
+  height: number = 0;
 
   constructor(private router: Router) {
     console.log("constructor");
@@ -45,6 +51,13 @@ export class ScannerPage implements OnInit {
           barcodeResults:frameResult.results
         }
       });
+    }else{
+      this.width = frameResult.frameWidth;
+      this.height = frameResult.frameHeight;
+      this.left = frameResult.frameWidth * 0.15;
+      this.top = frameResult.frameHeight * 0.20;
+      this.right = frameResult.frameWidth * 0.85;
+      this.bottom = frameResult.frameHeight * 0.6;
     }
   }
 
