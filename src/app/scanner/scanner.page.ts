@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
 
@@ -12,12 +12,12 @@ export class ScannerPage implements OnInit {
   qrcodeonly: boolean;
   torchOn: boolean;
   runtimeSettings: string;
-  left: number = 0;
-  top: number = 0;
-  right: number = 0;
-  bottom: number = 0;
-  width: number = 0;
-  height: number = 0;
+  left: number;
+  top: number;
+  right: number;
+  bottom: number;
+  width: number;
+  height: number;
 
   constructor(private router: Router) {
     console.log("constructor");
@@ -37,7 +37,12 @@ export class ScannerPage implements OnInit {
    }
 
   ngOnInit() {
-
+    this.width = 1081;
+    this.height = 1920;
+    this.left = this.width * 0.15;
+    this.right = this.width * 0.85;
+    this.top = this.height * 0.25;
+    this.bottom = this.height * 0.6;
   }
 
   onFrameRead(frameResult:FrameResult) {
@@ -52,12 +57,14 @@ export class ScannerPage implements OnInit {
         }
       });
     }else{
-      this.width = frameResult.frameWidth;
-      this.height = frameResult.frameHeight;
-      this.left = frameResult.frameWidth * 0.15;
-      this.top = frameResult.frameHeight * 0.20;
-      this.right = frameResult.frameWidth * 0.85;
-      this.bottom = frameResult.frameHeight * 0.6;
+      if (this.width != frameResult.frameWidth) {
+        this.width = frameResult.frameWidth;
+        this.height = frameResult.frameHeight;
+        this.left = frameResult.frameWidth * 0.15;
+        this.top = frameResult.frameHeight * 0.20;
+        this.right = frameResult.frameWidth * 0.85;
+        this.bottom = frameResult.frameHeight * 0.6;
+      }
     }
   }
 
