@@ -56,7 +56,12 @@ export class ScannerPage implements OnInit {
                                     "MeasuredByPercentage": 1,
                                     "Name": "Settings",
                                   };
-    return JSON.stringify(settings);
+    if (settings["ImageParameter"]["BarcodeFormatIds"]) {
+      settings["RegionDefinition"]["BarcodeFormatIds"] = settings["ImageParameter"]["BarcodeFormatIds"];
+    }
+    
+    const settingsAsString = JSON.stringify(settings);
+    return settingsAsString;
   }
 
   onFrameRead(frameResult:FrameResult) {
