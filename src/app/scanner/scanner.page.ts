@@ -28,9 +28,9 @@ export class ScannerPage implements OnInit {
       }
     }
     if (this.qrcodeonly === true) {
-      this.runtimeSettings = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
+      this.runtimeSettings = this.updateRuntimeSettingsWithScanRegion("{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}");
     }else{
-      this.runtimeSettings = "{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}";
+      this.runtimeSettings = this.updateRuntimeSettingsWithScanRegion("{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}");
     }
     this.isActive = true;
     this.torchOn = false;
@@ -43,6 +43,20 @@ export class ScannerPage implements OnInit {
     this.right = this.width * 0.85;
     this.top = this.height * 0.25;
     this.bottom = this.height * 0.6;
+  }
+
+  updateRuntimeSettingsWithScanRegion(template:string){
+    const settings = JSON.parse(template);
+    settings["ImageParameter"]["RegionDefinitionNameArray"] = ["Settings"];
+    settings["RegionDefinition"] = {
+                                    "Left": 15,
+                                    "Right": 85,
+                                    "Top": 25,
+                                    "Bottom": 60,
+                                    "MeasuredByPercentage": 1,
+                                    "Name": "Settings",
+                                  };
+    return JSON.stringify(settings);
   }
 
   onFrameRead(frameResult:FrameResult) {
