@@ -23,7 +23,7 @@
     "@awesome-cordova-plugins/dynamsoft-barcode-scanner": "^5.44.0",
     "@ionic/angular": "^6.0.0",
     "@ionic/cordova-builders": "^6.1.0",
-    "cordova-plugin-dynamsoft-barcode-reader": "^1.4.4",
+    "cordova-plugin-dynamsoft-barcode-reader": "^1.4.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
