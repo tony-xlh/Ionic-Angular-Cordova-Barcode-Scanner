@@ -16,7 +16,7 @@ export class BarcodeScannerComponent implements OnInit {
   set isActive(isActive: boolean) {
     this._isActive= isActive;
     if (isActive === true) {
-      DBR.startScanning({dceLicense:this.license}).subscribe((result:FrameResult) => {
+      DBR.startScanning({dceLicense:this.dceLicense}).subscribe((result:FrameResult) => {
         if (this.onFrameRead) {
           this.onFrameRead.emit(result);
         }
@@ -40,17 +40,22 @@ export class BarcodeScannerComponent implements OnInit {
 
   get torchOn(): boolean{ return this._torchOn; }
   onFrameRead = new EventEmitter<FrameResult>();
-  @Input() license?:string
+  @Input() dbrLicense?:string
+  @Input() dceLicense?:string
   constructor() {
   }
 
   async ngOnInit():Promise<void> {
-    if (!this.license) {
-      this.license = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==";
+    if (!this.dbrLicense) {
+      this.dbrLicense = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==";
     }else{
       console.log("use provided license");
     }
-    let result = await DBR.init(this.license);
+    if (!this.dceLicense) {
+      this.dceLicense = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ==";
+    }
+
+    let result = await DBR.init(this.dbrLicense);
     if (this.runtimeSettings) {
       console.log("update runtime settings:"+this.runtimeSettings);
       DBR.initRuntimeSettingsWithString(this.runtimeSettings);
