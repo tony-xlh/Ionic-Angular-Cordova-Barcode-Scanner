@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
-import { BarcodeScanner as DBR, FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner/';
+import { BarcodeScanner as DBR, FrameResult } from 'awesome-cordova-plugin-dynamsoft-barcode-scanner';
 
 @Component({
   selector: 'app-barcode-scanner',

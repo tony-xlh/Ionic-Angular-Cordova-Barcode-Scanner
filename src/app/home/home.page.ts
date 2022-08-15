@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { BarcodeResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
+import { BarcodeResult } from 'awesome-cordova-plugin-dynamsoft-barcode-scanner';
 
 @Component({
   selector: 'app-home',

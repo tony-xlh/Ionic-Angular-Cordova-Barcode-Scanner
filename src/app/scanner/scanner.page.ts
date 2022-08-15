@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FrameResult } from '@awesome-cordova-plugins/dynamsoft-barcode-scanner';
+import { FrameResult } from 'awesome-cordova-plugin-dynamsoft-barcode-scanner';
 
 @Component({
   selector: 'app-scanner',
