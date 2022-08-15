@@ -3,6 +3,7 @@
  [isActive] = "isActive"
  [runtimeSettings] = "runtimeSettings"
  [torchOn] = "torchOn"
+ [zoomFactor] = "zoomFactor"
  dceLicense = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ=="
  dbrLicense = "DLS2eyJoYW5kc2hha2VDb2RlIjoiMjAwMDAxLTE2NDk4Mjk3OTI2MzUiLCJvcmdhbml6YXRpb25JRCI6IjIwMDAwMSIsInNlc3Npb25QYXNzd29yZCI6IndTcGR6Vm05WDJrcEQ5YUoifQ=="
  (onFrameRead)="onFrameRead($event)"></app-barcode-scanner>
@@ -23,6 +24,12 @@
       <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="top">
+      <ion-fab-button (click)="zoomOut()">
+        <ion-icon name="remove"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="zoomIn()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
       <ion-fab-button (click)="toggleTorch()">
         <ion-icon name="flashlight-outline"></ion-icon>
       </ion-fab-button>

@@ -9,6 +9,7 @@ import { BarcodeScanner as DBR, FrameResult } from 'awesome-cordova-plugin-dynam
 })
 export class BarcodeScannerComponent implements OnInit {
   @Input() runtimeSettings:string;
+  private _zoomFactor:number;
   private _torchOn:boolean;
   private _isActive: boolean;
 
@@ -39,6 +40,17 @@ export class BarcodeScannerComponent implements OnInit {
   }
 
   get torchOn(): boolean{ return this._torchOn; }
+
+  @Input()
+  set zoomFactor(factor: number) {
+    if (factor) {
+      this._zoomFactor= factor;
+      DBR.setZoom(factor);
+    }
+  }
+
+  get zoomFactor(): number{ return this._zoomFactor; }
+
   onFrameRead = new EventEmitter<FrameResult>();
   @Input() dbrLicense?:string
   @Input() dceLicense?:string

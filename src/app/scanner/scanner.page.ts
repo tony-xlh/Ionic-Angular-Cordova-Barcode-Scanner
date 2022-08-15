@@ -18,6 +18,7 @@ export class ScannerPage implements OnInit {
   bottom: number;
   width: number;
   height: number;
+  zoomFactor: number;
 
   constructor(private router: Router) {
     console.log("constructor");
@@ -99,5 +100,13 @@ export class ScannerPage implements OnInit {
 
   toggleTorch(){
     this.torchOn = !this.torchOn;
+  }
+
+  zoomIn(){
+    this.zoomFactor = 2.5;
+  }
+
+  zoomOut(){
+    this.zoomFactor = 1.0;
   }
 }
