@@ -29,6 +29,16 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/viewfinder-component/dist",
+                "output": "/assets/viewfinder/"
+              },
+              {
+                "glob": "eruda.js",
+                "input": "node_modules/eruda",
+                "output": "/assets/"
               }
             ],
             "styles": [
@@ -112,6 +122,16 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/viewfinder-component/dist",
+                "output": "/assets/viewfinder/"
+              },
+              {
+                "glob": "eruda.js",
+                "input": "node_modules/eruda",
+                "output": "/assets/"
               }
             ]
           },
