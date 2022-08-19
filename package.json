@@ -23,7 +23,7 @@
     "@ionic/angular": "^6.0.0",
     "@ionic/cordova-builders": "^6.1.0",
     "awesome-cordova-plugin-dynamsoft-barcode-scanner": "^1.0.1",
-    "cordova-plugin-dynamsoft-barcode-reader": "^1.5.0",
+    "cordova-plugin-dynamsoft-barcode-reader": "^1.5.1",
     "eruda": "^2.5.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
@@ -80,8 +80,8 @@
       "cordova-plugin-dynamsoft-barcode-reader": {}
     },
     "platforms": [
-      "android",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }
