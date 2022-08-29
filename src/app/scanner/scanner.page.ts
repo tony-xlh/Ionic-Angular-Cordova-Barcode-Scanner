@@ -37,6 +37,7 @@ export class ScannerPage implements OnInit {
   bottom: number;
   width: number;
   height: number;
+  viewBox: string;
   zoomFactor: number;
   rotation: number;
 
@@ -95,6 +96,7 @@ export class ScannerPage implements OnInit {
       this.top = this.height * predefinedRegion.top / 100;
       this.bottom = this.height * predefinedRegion.bottom / 100;
     }
+    this.viewBox = "0 0 "+this.width+" "+this.height;
   }
 
   updateRuntimeSettingsWithScanRegion(template:string){
