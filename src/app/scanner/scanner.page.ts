@@ -2,6 +2,24 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FrameResult } from 'awesome-cordova-plugin-dynamsoft-barcode-scanner';
 
+const predefinedRegion = {
+  left: 15,
+  top: 25,
+  right: 85,
+  bottom: 60
+}
+
+/**
+ * default scan region in portrait mode without rotating the frame
+ */
+let scanRegionForRuntimeSettings = {
+  left: 25,
+  top: 15,
+  right: 60,
+  bottom: 85
+}
+
+
 @Component({
   selector: 'app-scanner',
   templateUrl: './scanner.page.html',
@@ -19,6 +37,7 @@ export class ScannerPage implements OnInit {
   width: number;
   height: number;
   zoomFactor: number;
+  rotation: number;
 
   constructor(private router: Router) {
     console.log("constructor");
@@ -28,32 +47,39 @@ export class ScannerPage implements OnInit {
         this.qrcodeonly = routeState.qrcodeonly;
       }
     }
+    this.updateRuntimeSettings();
+    this.isActive = true;
+    this.torchOn = false;
+    this.rotation = 0;
+   }
+
+  updateRuntimeSettings(){
     if (this.qrcodeonly === true) {
       this.runtimeSettings = this.updateRuntimeSettingsWithScanRegion("{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_QR_CODE\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}");
     }else{
       this.runtimeSettings = this.updateRuntimeSettingsWithScanRegion("{\"ImageParameter\":{\"BarcodeFormatIds\":[\"BF_ALL\"],\"Description\":\"\",\"Name\":\"Settings\"},\"Version\":\"3.0\"}");
     }
-    this.isActive = true;
-    this.torchOn = false;
-   }
+    console.log("update runtime settings: "+this.runtimeSettings);
+  }
 
   ngOnInit() {
-    this.width = 1081;
+    // scan region for portrait.
+    this.width = 1080;
     this.height = 1920;
-    this.left = this.width * 0.15;
-    this.right = this.width * 0.85;
-    this.top = this.height * 0.25;
-    this.bottom = this.height * 0.6;
+    this.left = this.width * predefinedRegion.left / 100;
+    this.right = this.width * predefinedRegion.right / 100;
+    this.top = this.height * predefinedRegion.top / 100;
+    this.bottom = this.height * predefinedRegion.bottom / 100;
   }
 
   updateRuntimeSettingsWithScanRegion(template:string){
     const settings = JSON.parse(template);
     settings["ImageParameter"]["RegionDefinitionNameArray"] = ["Settings"];
     settings["RegionDefinition"] = {
-                                    "Left": 15,
-                                    "Right": 85,
-                                    "Top": 25,
-                                    "Bottom": 60,
+                                    "Left": scanRegionForRuntimeSettings.left,
+                                    "Right": scanRegionForRuntimeSettings.right,
+                                    "Top": scanRegionForRuntimeSettings.top,
+                                    "Bottom": scanRegionForRuntimeSettings.bottom,
                                     "MeasuredByPercentage": 1,
                                     "Name": "Settings",
                                   };
@@ -77,13 +103,25 @@ export class ScannerPage implements OnInit {
         }
       });
     }else{
-      if (this.width != frameResult.frameWidth) {
-        this.width = frameResult.frameWidth;
-        this.height = frameResult.frameHeight;
-        this.left = frameResult.frameWidth * 0.15;
-        this.top = frameResult.frameHeight * 0.20;
-        this.right = frameResult.frameWidth * 0.85;
-        this.bottom = frameResult.frameHeight * 0.6;
+      console.log(frameResult.frameRotation);
+      console.log(this.rotation);
+      console.log(frameResult.frameRotation === 90);
+      if (frameResult.frameRotation != this.rotation) {
+        this.rotation = frameResult.frameRotation;
+        if (frameResult.frameRotation === 90) {
+          console.log("switch height and width");
+          scanRegionForRuntimeSettings.top = predefinedRegion.left;
+          scanRegionForRuntimeSettings.bottom = predefinedRegion.right;
+          scanRegionForRuntimeSettings.left = predefinedRegion.top;
+          scanRegionForRuntimeSettings.right = predefinedRegion.bottom;
+        }else{
+          console.log("no need switching height and width");
+          scanRegionForRuntimeSettings.left = predefinedRegion.left;
+          scanRegionForRuntimeSettings.right = predefinedRegion.right;
+          scanRegionForRuntimeSettings.top = predefinedRegion.top;
+          scanRegionForRuntimeSettings.bottom = predefinedRegion.bottom;
+        }
+        this.updateRuntimeSettings();
       }
     }
   }
