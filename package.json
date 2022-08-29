@@ -27,7 +27,6 @@
     "eruda": "^2.5.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
-    "viewfinder-component": "^0.2.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
