@@ -31,11 +31,6 @@
                 "output": "./svg"
               },
               {
-                "glob": "**/*",
-                "input": "node_modules/viewfinder-component/dist",
-                "output": "/assets/viewfinder/"
-              },
-              {
                 "glob": "eruda.js",
                 "input": "node_modules/eruda",
                 "output": "/assets/"
@@ -122,11 +117,6 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/viewfinder-component/dist",
-                "output": "/assets/viewfinder/"
               },
               {
                 "glob": "eruda.js",
