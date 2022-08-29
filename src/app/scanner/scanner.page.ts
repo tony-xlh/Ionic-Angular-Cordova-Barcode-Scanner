@@ -71,6 +71,7 @@ export class ScannerPage implements OnInit {
   }
 
   updateViewFinder(){
+    this.rotation = 0;
     if (ScreenOrientation.type.indexOf("portrait") != -1) {
       predefinedRegion.left = 15;
       predefinedRegion.right = 85;
