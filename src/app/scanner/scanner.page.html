@@ -11,7 +11,35 @@
 <div>
   <svg
     class="viewfinder"
+    preserveAspectRatio="xMidYMid slice"
     [attr.viewBox]="viewBox">
+    <defs>
+      <mask id="myMask">
+        <rect 
+          x="0" 
+          y="0" 
+          [attr.width]="width" 
+          [attr.height]="height" fill="white" />
+        <rect 
+          [attr.x]="left"
+          [attr.y]="top"
+          [attr.width]="right - left"
+          [attr.height]="bottom - top" fill="black" 
+        />
+      </mask>
+    </defs>
+    
+    <line 
+      [attr.x1]="left"
+      [attr.y1]="top"
+      [attr.x2]="right"
+      [attr.y2]="top"
+      class="scan-line">
+      <animate attributeName="y1" [attr.to]="bottom"  begin="0s" dur="2s"  repeatCount="indefinite" />
+      <animate attributeName="y2" [attr.to]="bottom"  begin="0s" dur="2s"  repeatCount="indefinite" />
+    </line>
+    <rect [attr.width]="width" [attr.height]="height" class="mask-rect" mask="url(#myMask)">
+    </rect>
     <rect [attr.x]="left" [attr.y]="top" [attr.width]="right - left" [attr.height]="bottom - top" class="scan-rect"/>
   </svg>
   <ion-fab vertical="bottom" horizontal="start" slot="fixed">
