@@ -72,6 +72,10 @@ export class ScannerPage implements OnInit {
 
   updateViewFinder(){
     if (ScreenOrientation.type.indexOf("portrait") != -1) {
+      predefinedRegion.left = 15;
+      predefinedRegion.right = 85;
+      predefinedRegion.top = 25;
+      predefinedRegion.bottom = 60;
       this.width = 1080;
       this.height = 1920;
       this.left = this.width * predefinedRegion.left / 100;
@@ -81,6 +85,10 @@ export class ScannerPage implements OnInit {
     }else {
       this.width = 1920;
       this.height = 1080;
+      predefinedRegion.left = 25;
+      predefinedRegion.right = 75;
+      predefinedRegion.top = 15;
+      predefinedRegion.bottom = 85;
       this.left = this.width * predefinedRegion.left / 100;
       this.right = this.width * predefinedRegion.right / 100;
       this.top = this.height * predefinedRegion.top / 100;
