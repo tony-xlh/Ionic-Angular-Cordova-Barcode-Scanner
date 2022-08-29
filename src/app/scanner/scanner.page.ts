@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FrameResult } from 'awesome-cordova-plugin-dynamsoft-barcode-scanner';
+import { ScreenOrientation } from '@awesome-cordova-plugins/screen-orientation';
 
 const predefinedRegion = {
   left: 15,
@@ -63,13 +64,28 @@ export class ScannerPage implements OnInit {
   }
 
   ngOnInit() {
-    // scan region for portrait.
-    this.width = 1080;
-    this.height = 1920;
-    this.left = this.width * predefinedRegion.left / 100;
-    this.right = this.width * predefinedRegion.right / 100;
-    this.top = this.height * predefinedRegion.top / 100;
-    this.bottom = this.height * predefinedRegion.bottom / 100;
+    this.updateViewFinder();
+    ScreenOrientation.onChange().subscribe(() => {
+      this.updateViewFinder();
+    })
+  }
+
+  updateViewFinder(){
+    if (ScreenOrientation.type.indexOf("portrait") != -1) {
+      this.width = 1080;
+      this.height = 1920;
+      this.left = this.width * predefinedRegion.left / 100;
+      this.right = this.width * predefinedRegion.right / 100;
+      this.top = this.height * predefinedRegion.top / 100;
+      this.bottom = this.height * predefinedRegion.bottom / 100;
+    }else {
+      this.width = 1920;
+      this.height = 1080;
+      this.left = this.width * predefinedRegion.left / 100;
+      this.right = this.width * predefinedRegion.right / 100;
+      this.top = this.height * predefinedRegion.top / 100;
+      this.bottom = this.height * predefinedRegion.bottom / 100;
+    }
   }
 
   updateRuntimeSettingsWithScanRegion(template:string){
