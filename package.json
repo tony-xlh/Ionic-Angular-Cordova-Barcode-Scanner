@@ -83,8 +83,8 @@
       "cordova-plugin-dynamsoft-barcode-reader": {}
     },
     "platforms": [
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
