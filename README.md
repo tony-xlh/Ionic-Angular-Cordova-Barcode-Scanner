@@ -39,3 +39,9 @@ How to run:
    
 5. Use Android Studio and Xcode to open and run the project.
 
+   
+## SDK Versions Used for Different Platforms
+
+| Dynamsoft Barcode Reader      | Android |    iOS |
+| ----------- | ----------- | -----------  |
+| Version    | 9.0       | 9.0     |
