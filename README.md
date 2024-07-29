@@ -42,6 +42,6 @@ How to run:
    
 ## SDK Versions Used for Different Platforms
 
-| Dynamsoft Barcode Reader      | Android |    iOS |
+| Product      | Android |    iOS |
 | ----------- | ----------- | -----------  |
-| Version    | 9.0       | 9.0     |
+| Dynamsoft Barcode Reader    | 9.0       | 9.0     |
