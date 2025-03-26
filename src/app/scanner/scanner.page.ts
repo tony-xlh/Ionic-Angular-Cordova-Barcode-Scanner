@@ -101,7 +101,8 @@ export class ScannerPage implements OnInit {
 
   updateRuntimeSettingsWithScanRegion(template:string){
     const settings = JSON.parse(template);
-    settings["ImageParameter"]["RegionDefinitionNameArray"] = ["Settings"];
+    /*settings["ImageParameter"]["RegionDefinitionNameArray"] = ["Settings"];
+    
     settings["RegionDefinition"] = {
                                     "Left": scanRegionForRuntimeSettings.left,
                                     "Right": scanRegionForRuntimeSettings.right,
@@ -112,7 +113,7 @@ export class ScannerPage implements OnInit {
                                   };
     if (settings["ImageParameter"]["BarcodeFormatIds"]) {
       settings["RegionDefinition"]["BarcodeFormatIds"] = settings["ImageParameter"]["BarcodeFormatIds"];
-    }
+    }*/
     
     const settingsAsString = JSON.stringify(settings);
     return settingsAsString;
